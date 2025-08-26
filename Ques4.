@@ -1,0 +1,19 @@
+Qn.4 
+Write your first Parallel Program, with which you should be able to print your 
+NAME from 4 underline cores. 
+ 
+Code :-  
+#include <stdio.h> 
+#include <omp.h> 
+ 
+int main() { 
+    // Force 4 threads 
+    omp_set_num_threads(4); 
+ 
+    #pragma omp parallel 
+    { 
+        int tid = omp_get_thread_num(); 
+        printf("Hello, I am thread %d printing my NAME: YOUR_NAME_HERE\n", tid); 
+    } 
+    return 0; 
+}
