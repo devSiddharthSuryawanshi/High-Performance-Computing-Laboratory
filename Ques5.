@@ -1,0 +1,42 @@
+ 
+Qn.5 
+Write a C program using OpenMP directives to demonstrate the behavior of the private 
+clause. 
+Your program should: 
+1. Initialize OpenMP with 4 threads. 
+2. Declare an integer variable val and initialize it to 1234. 
+3. Print the initial value of val outside the OpenMP parallel region. 
+4. Enter an OpenMP parallel region using the firstprivate(val) clause. 
+5. Inside the parallel region, each thread should: 
+○ Print the current value of val. 
+○ Increment val by 1. 
+○ Print the updated value of val. 
+6. After the parallel region, print the final value of val outside the region. 
+ 
+ 
+Code :-  
+#include <stdio.h> 
+#include <omp.h> 
+ 
+int main() { 
+    omp_set_num_threads(4);    // Fix number of threads = 4 
+ 
+    int val = 1234;            // Shared variable outside the region 
+ 
+    printf("Outside parallel region: val = %d\n", val); 
+ 
+    #pragma omp parallel firstprivate(val) 
+    { 
+        int tid = omp_get_thread_num(); 
+ 
+        printf("Thread %d: initial val = %d\n", tid, val); 
+ 
+        val++; 
+ 
+        printf("Thread %d: updated val = %d\n", tid, val); 
+    } 
+ 
+    printf("Outside parallel region after parallel block: val = %d\n", val); 
+ 
+    return 0; 
+}
